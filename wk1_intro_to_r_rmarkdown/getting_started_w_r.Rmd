@@ -1,0 +1,65 @@
+---
+title: "Getting Started with R"
+author: "David Bell"
+output: 
+  html_document:
+    keep_md: TRUE
+    code_folding: show
+    theme: readable
+---
+
+### R Script vs. R Markdown
+
+Data scientist traditionally use two files while in RStudio: R scripts (.R) and R Markdown documents (.rmd). When we're exploring, cleaning, and visualizing data, we usually work in an R script where we don't have to worry about making our work neat or presentable. But when it comes time to present our findings, R Markdown becomes a great tool to write to and make an HTML document where we can create a more cohesive analysis. You can create either of these by selecing `File`, `New File`, then select whichever format you need (notice the numerous coding language options available to you in RStudio).
+
+### Loading Libraries
+
+First things first, we must load the libraries we're going to need for our work. Click `Insert`, `R` to add an R chunk. A good standard is always loading the `tidyverse` package as it contains many of the tools and functions we'll need to wrangle and visualize data. We do this by typing `library(tidyverse)`.
+
+```{r message=FALSE, warning=FALSE}
+library(tidyverse)
+```
+
+If a library you're wishing to use hasn't yet been installed, you will need to run `install.packages()` with whichever library you're loading in quotes. The function I usually use is `pacman::p_load()` which loads the library, and if it hasn't yet been installed, attempts to install it. A bit of a combination of `install.packages()` and `library()`.
+
+### Exploring Data
+
+To view a data frame in another tab, run `View(data)`. Let's take a look at the `mtcars` dataset:
+
+```{r}
+# View(mtcars)
+```
+
+This is a good way to sort explore the data, where you can sort the data by individual columns. Another good command is `summary(data)`:
+
+```{r}
+summary(mtcars)
+```
+If your data is quantitative, this outputs a six-number summary for each variable. If you want a brief glance of your data, try `head(data, 10)` which displays the first ten rows of your data frame:
+
+```{r}
+head(mtcars, 10)
+```
+`str(data)` will list the structure of your data frame:
+
+```{r}
+str(mtcars)
+```
+
+It's our job as data scientists to be literate about our/our client's data and this means exploring and getting familiar with the data. Checking for missing values is part of that. We can check by running `is.na(data)` and `sum(is.na(data))`:
+
+```{r}
+is.na(mtcars)
+sum(is.na(mtcars))
+```
+
+`is.na(data)` isn't always the best option if you're working with large data, but the `sum(is.na(data))` can give you an idea of how much you're missing. 
+
+
+
+
+
+
+
+
+
