@@ -439,13 +439,13 @@ pre code {
 
 <div id="r-script-vs.r-markdown" class="section level3">
 <h3>R Script vs. R Markdown</h3>
-<p>Data scientist traditionally use two files while in RStudio: R scripts (.R) and R Markdown documents (.rmd). When we’re exploring, cleaning, and visualizing data, we usually work in an R script where we don’t have to worry about making our work neat or presentable. But when it comes time to present our findings, R Markdown becomes a great tool to write to and make an HTML document where we can create a more cohesive analysis. You can create either of these by selecing <code>File</code>, <code>New File</code>, then select whichever format you need (notice the numerous coding language options available to you in RStudio).</p>
+<p>Data scientists traditionally use two files in RStudio: R scripts (.R) and R Markdown documents (.rmd). When we’re exploring, cleaning, and visualizing data, we’ll use an R script where we don’t have to worry about making our work neat or presentable. But when it comes time to present our findings, R Markdown becomes a great tool to write to and make an HTML document where we can create a more cohesive analysis. You can create either of these by selecing <code>File</code>, <code>New File</code>, then select whichever format you need (notice the numerous coding language options available to you in RStudio).</p>
 </div>
 <div id="loading-libraries" class="section level3">
 <h3>Loading Libraries</h3>
-<p>First things first, we must load the libraries we’re going to need for our work. Click <code>Insert</code>, <code>R</code> to add an R chunk. A good standard is always loading the <code>tidyverse</code> package as it contains many of the tools and functions we’ll need to wrangle and visualize data. We do this by typing <code>library(tidyverse)</code>.</p>
+<p>First things first, we must load our required libraries. Click <code>Insert</code>, <code>R</code> to add an R chunk. A good standard is always loading the <code>tidyverse</code> package as it contains many of the tools and functions we’ll need to wrangle and visualize data. We do this by typing <code>library(tidyverse)</code>.</p>
 <pre class="r"><code>library(tidyverse)</code></pre>
-<p>If a library you’re wishing to use hasn’t yet been installed, you will need to run <code>install.packages()</code> with whichever library you’re loading in quotes. The function I usually use is <code>pacman::p_load()</code> which loads the library, and if it hasn’t yet been installed, attempts to install it. A bit of a combination of <code>install.packages()</code> and <code>library()</code>.</p>
+<p>If a library you’re wishing to use hasn’t yet been installed, you will need to run <code>install.packages()</code> with whichever library you’re loading in quotes. The function I usually use is <code>pacman::p_load()</code> which loads the library, and if it hasn’t yet been installed, attempts to install it. It’s a bit of a combination of <code>install.packages()</code> and <code>library()</code>.</p>
 </div>
 <div id="exploring-data" class="section level3">
 <h3>Exploring Data</h3>
@@ -572,6 +572,92 @@ pre code {
 <pre class="r"><code>sum(is.na(mtcars))</code></pre>
 <pre><code>## [1] 0</code></pre>
 <p><code>is.na(data)</code> isn’t always the best option if you’re working with large data, but the <code>sum(is.na(data))</code> can give you an idea of how much you’re missing.</p>
+</div>
+<div id="using-the-pipe-function" class="section level3">
+<h3>Using the Pipe Function (%&gt;%)</h3>
+<p>Since R is a statistical/data driven language, most functions require the data set on which you’re performing the function. An example is <code>select(mtcars, mpg)</code> which selects the <code>mpg</code> column from <code>mtcars</code>.</p>
+<pre class="r"><code>select(mtcars, mpg)</code></pre>
+<pre><code>##                      mpg
+## Mazda RX4           21.0
+## Mazda RX4 Wag       21.0
+## Datsun 710          22.8
+## Hornet 4 Drive      21.4
+## Hornet Sportabout   18.7
+## Valiant             18.1
+## Duster 360          14.3
+## Merc 240D           24.4
+## Merc 230            22.8
+## Merc 280            19.2
+## Merc 280C           17.8
+## Merc 450SE          16.4
+## Merc 450SL          17.3
+## Merc 450SLC         15.2
+## Cadillac Fleetwood  10.4
+## Lincoln Continental 10.4
+## Chrysler Imperial   14.7
+## Fiat 128            32.4
+## Honda Civic         30.4
+## Toyota Corolla      33.9
+## Toyota Corona       21.5
+## Dodge Challenger    15.5
+## AMC Javelin         15.2
+## Camaro Z28          13.3
+## Pontiac Firebird    19.2
+## Fiat X1-9           27.3
+## Porsche 914-2       26.0
+## Lotus Europa        30.4
+## Ford Pantera L      15.8
+## Ferrari Dino        19.7
+## Maserati Bora       15.0
+## Volvo 142E          21.4</code></pre>
+<p>Alternatively, we could use the pipe function. The pipe function is a way to perform a sequence of operations. How would we use this example? Well, instead of feeding the <code>select()</code> function <code>mtcars</code>, we could pipe <code>mtcars</code> <em>into</em> the <code>select</code> function.</p>
+<pre class="r"><code>mtcars %&gt;% 
+  select(mpg)</code></pre>
+<pre><code>##                      mpg
+## Mazda RX4           21.0
+## Mazda RX4 Wag       21.0
+## Datsun 710          22.8
+## Hornet 4 Drive      21.4
+## Hornet Sportabout   18.7
+## Valiant             18.1
+## Duster 360          14.3
+## Merc 240D           24.4
+## Merc 230            22.8
+## Merc 280            19.2
+## Merc 280C           17.8
+## Merc 450SE          16.4
+## Merc 450SL          17.3
+## Merc 450SLC         15.2
+## Cadillac Fleetwood  10.4
+## Lincoln Continental 10.4
+## Chrysler Imperial   14.7
+## Fiat 128            32.4
+## Honda Civic         30.4
+## Toyota Corolla      33.9
+## Toyota Corona       21.5
+## Dodge Challenger    15.5
+## AMC Javelin         15.2
+## Camaro Z28          13.3
+## Pontiac Firebird    19.2
+## Fiat X1-9           27.3
+## Porsche 914-2       26.0
+## Lotus Europa        30.4
+## Ford Pantera L      15.8
+## Ferrari Dino        19.7
+## Maserati Bora       15.0
+## Volvo 142E          21.4</code></pre>
+<p>What if we wanted to do multiple operations on <code>mtcars</code>? We could use another pipe.</p>
+<pre class="r"><code>mtcars %&gt;% 
+  select(mpg) %&gt;% 
+  summary()</code></pre>
+<pre><code>##       mpg       
+##  Min.   :10.40  
+##  1st Qu.:15.43  
+##  Median :19.20  
+##  Mean   :20.09  
+##  3rd Qu.:22.80  
+##  Max.   :33.90</code></pre>
+<p>The pipe command becomes a great way to link together operations that would have otherwise been performed separately. The shortcut is <code>Cmd Shift M</code> on Mac, and <code>Ctrl Shift M</code> on PC. We’ll be using the pipe statement consistently throughout bootcamp.</p>
 </div>
 
 

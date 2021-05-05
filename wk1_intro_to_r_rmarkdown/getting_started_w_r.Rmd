@@ -10,17 +10,17 @@ output:
 
 ### R Script vs. R Markdown
 
-Data scientist traditionally use two files while in RStudio: R scripts (.R) and R Markdown documents (.rmd). When we're exploring, cleaning, and visualizing data, we usually work in an R script where we don't have to worry about making our work neat or presentable. But when it comes time to present our findings, R Markdown becomes a great tool to write to and make an HTML document where we can create a more cohesive analysis. You can create either of these by selecing `File`, `New File`, then select whichever format you need (notice the numerous coding language options available to you in RStudio).
+Data scientists traditionally use two files in RStudio: R scripts (.R) and R Markdown documents (.rmd). When we're exploring, cleaning, and visualizing data, we'll use an R script where we don't have to worry about making our work neat or presentable. But when it comes time to present our findings, R Markdown becomes a great tool to write to and make an HTML document where we can create a more cohesive analysis. You can create either of these by selecing `File`, `New File`, then select whichever format you need (notice the numerous coding language options available to you in RStudio).
 
 ### Loading Libraries
 
-First things first, we must load the libraries we're going to need for our work. Click `Insert`, `R` to add an R chunk. A good standard is always loading the `tidyverse` package as it contains many of the tools and functions we'll need to wrangle and visualize data. We do this by typing `library(tidyverse)`.
+First things first, we must load our required libraries. Click `Insert`, `R` to add an R chunk. A good standard is always loading the `tidyverse` package as it contains many of the tools and functions we'll need to wrangle and visualize data. We do this by typing `library(tidyverse)`.
 
 ```{r message=FALSE, warning=FALSE}
 library(tidyverse)
 ```
 
-If a library you're wishing to use hasn't yet been installed, you will need to run `install.packages()` with whichever library you're loading in quotes. The function I usually use is `pacman::p_load()` which loads the library, and if it hasn't yet been installed, attempts to install it. A bit of a combination of `install.packages()` and `library()`.
+If a library you're wishing to use hasn't yet been installed, you will need to run `install.packages()` with whichever library you're loading in quotes. The function I usually use is `pacman::p_load()` which loads the library, and if it hasn't yet been installed, attempts to install it. It's a bit of a combination of `install.packages()` and `library()`.
 
 ### Exploring Data
 
@@ -55,10 +55,27 @@ sum(is.na(mtcars))
 
 `is.na(data)` isn't always the best option if you're working with large data, but the `sum(is.na(data))` can give you an idea of how much you're missing. 
 
+### Using the Pipe Function (%>%)
 
+Since R is a statistical/data driven language, most functions require the data set on which you're performing the function. An example is `select(mtcars, mpg)` which selects the `mpg` column from `mtcars`.
 
+```{r}
+select(mtcars, mpg)
+```
+Alternatively, we could use the pipe function. The pipe function is a way to perform a sequence of operations. How would we use this example? Well, instead of feeding the `select()` function `mtcars`, we could pipe `mtcars` *into* the `select` function.
 
+```{r}
+mtcars %>% 
+  select(mpg)
+```
+What if we wanted to do multiple operations on `mtcars`? We could use another pipe.
 
+```{r}
+mtcars %>% 
+  select(mpg) %>% 
+  summary()
+```
+The pipe command becomes a great way to link together operations that would have otherwise been performed separately. The shortcut is `Cmd Shift M` on Mac, and `Ctrl Shift M` on PC. We'll be using the pipe statement consistently throughout bootcamp.
 
 
 

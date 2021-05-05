@@ -10,18 +10,18 @@ output:
 
 ### R Script vs. R Markdown
 
-Data scientist traditionally use two files while in RStudio: R scripts (.R) and R Markdown documents (.rmd). When we're exploring, cleaning, and visualizing data, we usually work in an R script where we don't have to worry about making our work neat or presentable. But when it comes time to present our findings, R Markdown becomes a great tool to write to and make an HTML document where we can create a more cohesive analysis. You can create either of these by selecing `File`, `New File`, then select whichever format you need (notice the numerous coding language options available to you in RStudio).
+Data scientists traditionally use two files in RStudio: R scripts (.R) and R Markdown documents (.rmd). When we're exploring, cleaning, and visualizing data, we'll use an R script where we don't have to worry about making our work neat or presentable. But when it comes time to present our findings, R Markdown becomes a great tool to write to and make an HTML document where we can create a more cohesive analysis. You can create either of these by selecing `File`, `New File`, then select whichever format you need (notice the numerous coding language options available to you in RStudio).
 
 ### Loading Libraries
 
-First things first, we must load the libraries we're going to need for our work. Click `Insert`, `R` to add an R chunk. A good standard is always loading the `tidyverse` package as it contains many of the tools and functions we'll need to wrangle and visualize data. We do this by typing `library(tidyverse)`.
+First things first, we must load our required libraries. Click `Insert`, `R` to add an R chunk. A good standard is always loading the `tidyverse` package as it contains many of the tools and functions we'll need to wrangle and visualize data. We do this by typing `library(tidyverse)`.
 
 
 ```r
 library(tidyverse)
 ```
 
-If a library you're wishing to use hasn't yet been installed, you will need to run `install.packages()` with whichever library you're loading in quotes. The function I usually use is `pacman::p_load()` which loads the library, and if it hasn't yet been installed, attempts to install it. A bit of a combination of `install.packages()` and `library()`.
+If a library you're wishing to use hasn't yet been installed, you will need to run `install.packages()` with whichever library you're loading in quotes. The function I usually use is `pacman::p_load()` which loads the library, and if it hasn't yet been installed, attempts to install it. It's a bit of a combination of `install.packages()` and `library()`.
 
 ### Exploring Data
 
@@ -190,10 +190,112 @@ sum(is.na(mtcars))
 
 `is.na(data)` isn't always the best option if you're working with large data, but the `sum(is.na(data))` can give you an idea of how much you're missing. 
 
+### Using the Pipe Function (%>%)
+
+Since R is a statistical/data driven language, most functions require the data set on which you're performing the function. An example is `select(mtcars, mpg)` which selects the `mpg` column from `mtcars`.
 
 
+```r
+select(mtcars, mpg)
+```
+
+```
+##                      mpg
+## Mazda RX4           21.0
+## Mazda RX4 Wag       21.0
+## Datsun 710          22.8
+## Hornet 4 Drive      21.4
+## Hornet Sportabout   18.7
+## Valiant             18.1
+## Duster 360          14.3
+## Merc 240D           24.4
+## Merc 230            22.8
+## Merc 280            19.2
+## Merc 280C           17.8
+## Merc 450SE          16.4
+## Merc 450SL          17.3
+## Merc 450SLC         15.2
+## Cadillac Fleetwood  10.4
+## Lincoln Continental 10.4
+## Chrysler Imperial   14.7
+## Fiat 128            32.4
+## Honda Civic         30.4
+## Toyota Corolla      33.9
+## Toyota Corona       21.5
+## Dodge Challenger    15.5
+## AMC Javelin         15.2
+## Camaro Z28          13.3
+## Pontiac Firebird    19.2
+## Fiat X1-9           27.3
+## Porsche 914-2       26.0
+## Lotus Europa        30.4
+## Ford Pantera L      15.8
+## Ferrari Dino        19.7
+## Maserati Bora       15.0
+## Volvo 142E          21.4
+```
+Alternatively, we could use the pipe function. The pipe function is a way to perform a sequence of operations. How would we use this example? Well, instead of feeding the `select()` function `mtcars`, we could pipe `mtcars` *into* the `select` function.
 
 
+```r
+mtcars %>% 
+  select(mpg)
+```
+
+```
+##                      mpg
+## Mazda RX4           21.0
+## Mazda RX4 Wag       21.0
+## Datsun 710          22.8
+## Hornet 4 Drive      21.4
+## Hornet Sportabout   18.7
+## Valiant             18.1
+## Duster 360          14.3
+## Merc 240D           24.4
+## Merc 230            22.8
+## Merc 280            19.2
+## Merc 280C           17.8
+## Merc 450SE          16.4
+## Merc 450SL          17.3
+## Merc 450SLC         15.2
+## Cadillac Fleetwood  10.4
+## Lincoln Continental 10.4
+## Chrysler Imperial   14.7
+## Fiat 128            32.4
+## Honda Civic         30.4
+## Toyota Corolla      33.9
+## Toyota Corona       21.5
+## Dodge Challenger    15.5
+## AMC Javelin         15.2
+## Camaro Z28          13.3
+## Pontiac Firebird    19.2
+## Fiat X1-9           27.3
+## Porsche 914-2       26.0
+## Lotus Europa        30.4
+## Ford Pantera L      15.8
+## Ferrari Dino        19.7
+## Maserati Bora       15.0
+## Volvo 142E          21.4
+```
+What if we wanted to do multiple operations on `mtcars`? We could use another pipe.
+
+
+```r
+mtcars %>% 
+  select(mpg) %>% 
+  summary()
+```
+
+```
+##       mpg       
+##  Min.   :10.40  
+##  1st Qu.:15.43  
+##  Median :19.20  
+##  Mean   :20.09  
+##  3rd Qu.:22.80  
+##  Max.   :33.90
+```
+The pipe command becomes a great way to link together operations that would have otherwise been performed separately. The shortcut is `Cmd Shift M` on Mac, and `Ctrl Shift M` on PC. We'll be using the pipe statement consistently throughout bootcamp.
 
 
 
