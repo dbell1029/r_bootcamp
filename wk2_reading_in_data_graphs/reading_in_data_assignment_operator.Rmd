@@ -1,0 +1,60 @@
+---
+title: "Reading in Data and Using the Assignment Operator"
+author: "David Bell"
+output: 
+  html_document:
+    keep_md: TRUE
+    code_folding: show
+    theme: readable
+---
+
+# Reading in Data
+
+Before we start working with a dataset, we need to import it into our R Studio environment. The format your data is in will determine the manner in which you read it in. Today we'll be working with the `Iris` data set. Before we do anything, we need to read in our required libraries.
+
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+library(tidyverse)
+```
+
+Here's a link to the Iris .csv dataset: `https://gist.githubusercontent.com/curran/a08a1080b88344b0c8a7/raw/0e7a9b0a5d22642a06d3d5b9bcbad9890c8ee534/iris.csv` Let's go ahead and import it using the `read_csv()` function in `readr`. We do this by typing `read_csv()` and then the file path to the dataset - in this case, the url above. Don't forget to put the file path in quotes!
+
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+read_csv("https://gist.githubusercontent.com/curran/a08a1080b88344b0c8a7/raw/0e7a9b0a5d22642a06d3d5b9bcbad9890c8ee534/iris.csv")
+```
+
+We see that `read_csv()` did the trick in reading in our data, but we aren't yet able to manipulate it. First we need save it as tibble (an R data frame). We do this using the assignment operator. 
+
+## Using the Assignment Operator
+
+In other programming languages such as Java and Python, if we want to assign something to an object name, we use the `=` assignment operator. But in R, the assignment operator is `<-`. The shortcut is `Option + -` on Mac and `Alt + -` on PC. Let's call our dataset `dat_iris` using the assignment operator.
+
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+dat_iris <- read_csv("https://gist.githubusercontent.com/curran/a08a1080b88344b0c8a7/raw/0e7a9b0a5d22642a06d3d5b9bcbad9890c8ee534/iris.csv")
+```
+
+Now our data is in an R tibble that we can manipulate as we please.
+
+## Exploring the Data
+
+Remember what we learned last time. As soon as we start working with a dataset, we should explore and get familiar with the data. Go ahead and run some exploratory commands (hint: `head()`, `str()`, `summary()`).
+
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+head(dat_iris)
+summary(dat_iris)
+str(dat_iris)
+```
+
+
+## Next Time
+
+Next time we'll work on creating some visualizations using tools in the `GGPlot2` library. 
+
+ 
+
+
+
+
+
+
+
+
