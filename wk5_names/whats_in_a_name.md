@@ -7,7 +7,8 @@ output:
     keep_md: TRUE
 ---
 
-```{r message=FALSE, warning=FALSE}
+
+```r
 library(tidyverse)
 
 dat <- read_csv("https://github.com/byuidatascience/data4names/raw/master/data-raw/names_year/names_year.csv")
@@ -26,14 +27,16 @@ By the Middle Ages, the Christian influence on naming practices was pervasive. E
 
 First, we'll start by filtering down the data to just our own name.
 
-```{r}
+
+```r
 david <- dat %>% 
   filter(name == "David")
 ```
 
 Then we can make a chart of the use of our name over time. Let's make a line chart.
 
-```{r message = FALSE, warning = FALSE}
+
+```r
 david %>% ggplot() +
   geom_point(aes(x = year, y = Total)) +
   geom_line(aes(x = year, y = Total, group = name)) +
@@ -41,9 +44,12 @@ david %>% ggplot() +
   theme_bw()
 ```
 
+![](whats_in_a_name_files/figure-html/unnamed-chunk-3-1.png)<!-- -->
+
 Now let's highlight our birth year, mine is 1994.
 
-```{r message=FALSE, warning=FALSE}
+
+```r
 david_1994 <- david %>% filter(year == 1994)
 
 david %>% ggplot() +
@@ -54,12 +60,15 @@ david %>% ggplot() +
   theme_bw() 
 ```
 
+![](whats_in_a_name_files/figure-html/unnamed-chunk-4-1.png)<!-- -->
+
 This is a simple way to give our own name and birthyear a context historically.
 
 ## If you talked to someone named Brittany on the phone, what is your guess of their age? What ages would you not guess?
 
 Well, we can create the same graph, only with "Brittany".
-```{r}
+
+```r
 brittany <- dat %>% filter(name == "Brittany")
 
 brittany %>% ggplot() +
@@ -69,13 +78,16 @@ brittany %>% ggplot() +
   theme_bw()
 ```
 
+![](whats_in_a_name_files/figure-html/unnamed-chunk-5-1.png)<!-- -->
+
 So what would you guess? I would say she was born somewhere in between 1985 and 1996. So I would guess she's between 25 and 36 years old. I would definitely not guess any older than 41, or younger than 17. 
 
 ## Think of a unique name from a famous movie. Plot that name and see how increases line up with the movie release.
 
 One of my favorite movies is "The Sandlot". Benny "The Jet" Rodriguez is one of the main characters. Let's see his name historically and see if there was a spike in "Benny"'s after the film came out in 1993.
 
-```{r}
+
+```r
 benny <- dat %>% filter(name == "Benny")
 
 benny %>% ggplot() +
@@ -84,6 +96,8 @@ benny %>% ggplot() +
   labs(title = "Amount of 'Benny's per Year (since 1910)", y = "Count", x = "Year") +
   theme_bw()
 ```
+
+![](whats_in_a_name_files/figure-html/unnamed-chunk-6-1.png)<!-- -->
 
 
 
