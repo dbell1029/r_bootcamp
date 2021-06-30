@@ -1,0 +1,88 @@
+---
+title: "What is in a name?"
+author: "David Bell"
+output: 
+  html_document:
+    code_folding: show
+---
+
+```{r message=FALSE, warning=FALSE}
+library(tidyverse)
+
+dat <- read_csv("https://github.com/byuidatascience/data4names/raw/master/data-raw/names_year/names_year.csv")
+```
+
+
+## [Background](https://byuistats.github.io/CSE250-Hathaway/projects/project-1/)
+
+Early in prehistory, some descriptive names began to be used again and again until they formed a name pool for a particular culture. Parents would choose names from the pool of existing names rather than invent new ones for their children.
+
+With the rise of Christianity, certain trends in naming practices manifested. Christians were encouraged to name their children after saints and martyrs of the church. These early Christian names can be found in many cultures today, in various forms. These were spread by early missionaries throughout the Mediterranean basin and Europe.
+
+By the Middle Ages, the Christian influence on naming practices was pervasive. Each culture had its pool of names, which were a combination of native names and early Christian names that had been in the language long enough to be considered native. [ref](https://heraldry.sca.org/names/namehist.html)
+
+## How does your name at your birth year compare to its use historically?
+
+First, we'll start by filtering down the data to just our own name.
+
+```{r}
+david <- dat %>% 
+  filter(name == "David")
+```
+
+Then we can make a chart of the use of our name over time. Let's make a line chart.
+
+```{r message = FALSE, warning = FALSE}
+david %>% ggplot() +
+  geom_point(aes(x = year, y = Total)) +
+  geom_line(aes(x = year, y = Total, group = name)) +
+  labs(title = "Amount of 'David's per Year (since 1910)", y = "Count", x = "Year") +
+  theme_bw()
+```
+
+Now let's highlight our birth year, mine is 1994.
+
+```{r message=FALSE, warning=FALSE}
+david_1994 <- david %>% filter(year == 1994)
+
+david %>% ggplot() +
+  geom_point(aes(x = year, y = Total)) +
+  geom_line(aes(x = year, y = Total, group = name)) +
+  geom_point(data = david_1994, aes(x = year, y = Total), size = 3, color = "red") +
+  labs(title = "Amount of 'David's per Year (since 1910)", y = "Count", x = "Year", subtitle = "(1994 in red)") +
+  theme_bw() 
+```
+
+This is a simple way to give our own name and birthyear a context historically.
+
+## If you talked to someone named Brittany on the phone, what is your guess of their age? What ages would you not guess?
+
+Well, we can create the same graph, only with "Brittany".
+```{r}
+brittany <- dat %>% filter(name == "Brittany")
+
+brittany %>% ggplot() +
+  geom_point(aes(x = year, y = Total)) +
+  geom_line(aes(x = year, y = Total, group = name)) +
+  labs(title = "Amount of 'Brittany's per Year (since 1968)", y = "Count", x = "Year") +
+  theme_bw()
+```
+
+So what would you guess? I would say she was born somewhere in between 1985 and 1996. So I would guess she's between 25 and 36 years old. I would definitely not guess any older than 41, or younger than 17. 
+
+## Think of a unique name from a famous movie. Plot that name and see how increases line up with the movie release.
+
+One of my favorite movies is "The Sandlot". Benny "The Jet" Rodriguez is one of the main characters. Let's see his name historically and see if there was a spike in "Benny"'s after the film came out in 1993.
+
+```{r}
+benny <- dat %>% filter(name == "Benny")
+
+benny %>% ggplot() +
+  geom_point(aes(x = year, y = Total)) +
+  geom_line(aes(x = year, y = Total, group = name)) +
+  labs(title = "Amount of 'Benny's per Year (since 1910)", y = "Count", x = "Year") +
+  theme_bw()
+```
+
+
+
